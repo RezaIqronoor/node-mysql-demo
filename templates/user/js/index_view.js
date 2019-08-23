@@ -52,12 +52,12 @@ btn_readSpecificTable.addEventListener("click", (err) => {
 btn_insert.addEventListener("click", (err) => {
     const user = input_insert.value
 
-    body = { "user": user }
-
-    fetch('http://localhost:3000/api_user?user=' + user, {
+    fetch('http://localhost:3000/api_user', {
         method: 'post',
-        body: body,
-        header: { 'Content-Type': 'application/json' }
+        body: JSON.stringify({
+            user: user
+        }),
+        headers: { 'Content-Type': 'application/json' }
     })
     .then((res) => {
         res.json().then((data) => {
@@ -71,9 +71,13 @@ btn_update.addEventListener("click", (err) => {
     const id = input_update_id.value
     const user = input_update.value
     
-    fetch('http://localhost:3000/api_user/?id=' + id + '&user=' + user + "/", {
-        method: 'patch',
-        header: { 'Content-Type': 'application/json' }
+    fetch('http://localhost:3000/api_user', {
+        method: 'PATCH',
+        body: JSON.stringify({
+            id: id,
+            user: user
+        }),
+        headers: { 'Content-Type': 'application/json' }
     })
     .then((res) => {
         res.json().then((data) => {
@@ -89,7 +93,7 @@ btn_delete.addEventListener("click", (err) => {
 
     fetch('http://localhost:3000/api_user/' + user, {
         method: 'delete',
-        header: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' }
     })
     .then((res) => {
         res.json().then((data) => {
